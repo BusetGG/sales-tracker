@@ -22,7 +22,6 @@ defaults:
     shell: bash
 
 jobs:
-  # Single deploy job since we just have one deployment environment
   deploy:
     environment:
       name: github-pages
@@ -47,10 +46,10 @@ jobs:
       - name: Build with Vite
         run: npm run build
         env:
-          # Set the Google OAuth credentials as GitHub Secrets
           VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
           VITE_GOOGLE_CLIENT_SECRET: ${{ secrets.VITE_GOOGLE_CLIENT_SECRET }}
           VITE_REDIRECT_URI: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          NODE_ENV: production
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
